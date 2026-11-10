@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How I got here</title>
+<link href="https://fonts.cdnfonts.com/css/nevera-132852" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<style>
+  html,body{margin:0;background:#081426;color-scheme:dark;color:#eef4fb;font-family:Manrope,system-ui,sans-serif;overflow:hidden}
+  a{color:#9dbbe0}
+  .wrap{display:flex;flex-wrap:wrap;gap:24px;box-sizing:border-box}
+  .map{position:relative;flex:1 1 520px;min-width:0;height:560px;border:1px solid rgba(220,234,247,.14);border-radius:20px;overflow:hidden;background:#081426}
+  .map svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .steps{flex:0 1 340px;display:flex;flex-direction:column;gap:10px;min-width:260px}
+  .step{opacity:1;position:relative;display:flex;gap:14px;padding:16px 16px 16px 14px;border:1px solid rgba(220,234,247,.12);border-radius:14px;background:#142a44;cursor:pointer;opacity:.6;transition:opacity .5s ease,border-color .5s ease,background .5s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
+  .step.on{opacity:1;border-color:rgba(157,187,224,.55);background:#1c3a5e;transform:translateX(4px)}
+  .step.done{opacity:.85}
+  .num{flex:none;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:100px;background:rgba(74,116,167,.28);font:500 13.2px/1 Manrope,sans-serif;color:#dceaf7;transition:background .5s ease}
+  .step.on .num{background:#4a74a7;color:#fff}
+  .when{font:500 12px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#9dbbe0}
+  .title{margin-top:7px;font:600 18.6px/1.25 Manrope,sans-serif;color:#eef4fb}
+  .desc{margin-top:6px;font:400 15.6px/1.55 Manrope,sans-serif;color:rgba(220,234,247,.72)}
+  .replay{align-self:flex-start;margin-top:4px;padding:13px 22px;border:1px solid rgba(220,234,247,.2);border-radius:100px;background:#142a44;color:#eef4fb;font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+  .replay:hover{border-color:#4a74a7}
+  .city{font:600 15.6px Manrope,sans-serif;fill:#eef4fb}
+  .sub{font:500 11.4px Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;fill:#9dbbe0}
+  .tag{font:500 12px Manrope,sans-serif;letter-spacing:.1em;text-transform:uppercase;fill:#081426}
+  @media (max-width:900px){.map{flex:1 1 100%;height:min(440px,70vw);min-height:300px}.steps{flex:1 1 100%;min-width:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="map" id="map"><svg id="svg" role="img" aria-label="Map showing the move from Dushanbe, Tajikistan to Warsaw, Poland"></svg></div>
+  <div class="steps" id="steps">
+    <div class="step" data-i="0"><div class="num">01</div><div><div class="when">Dushanbe · Tajikistan</div><div class="title">Where it started</div><div class="desc">Grew up and started working in Dushanbe, writing my first real code.</div></div></div>
+    <div class="step" data-i="1"><div class="num">02</div><div><div class="when">Dushanbe → Warsaw</div><div class="title">The move</div><div class="desc">Flew to Poland to study and build software for a living.</div></div></div>
+    <div class="step" data-i="2"><div class="num">03</div><div><div class="when">Warsaw · 2025 — 2026</div><div class="title">Sadykov Group</div><div class="desc">Designed, built and ran the company's site and recruitment platform — and gained real product experience.</div></div></div>
+    <div class="step" data-i="3"><div class="num">04</div><div><div class="when">Warsaw · ongoing</div><div class="title">Vistula University</div><div class="desc">BSc Computer Engineering — studying while shipping.</div></div></div>
+    <button class="replay" id="replay">↺ Replay the journey</button>
+  </div>
+</div>
+
+<script>
+let __pending = false, __ready = false, __played = false;
+window.addEventListener('message', e => {
+  if (e.data !== 'path-play') return;
+  if (__ready) { if (!__played) { __played = true; window.__pathPlay(); } } else __pending = true;
+});
+(async function () {
+  const DUSH = [68.7864, 38.5598], WAW = [21.0122, 52.2297];
+  const svg = d3.select('#svg');
+  const mapEl = document.getElementById('map');
+  const steps = [...document.querySelectorAll('.step')];
+  let W = 0, H = 0, projection, path, world;
+
+  const topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r => r.json());
+  world = topojson.feature(topo, topo.objects.countries);
+  const borders = topojson.mesh(topo, topo.objects.countries, (a, b) => a !== b);
+  const focusIds = new Set(['762', '616']); // Tajikistan, Poland
+
+  const gMap = svg.append('g');
+  const gGrat = gMap.append('path').attr('fill', 'none').attr('stroke', 'rgba(220,234,247,.05)');
+  const gLand = gMap.append('g');
+  const gBord = gMap.append('path').attr('fill', 'none').attr('stroke', 'rgba(220,234,247,.12)').attr('stroke-width', .6);
+  const route = svg.append('path').attr('fill', 'none').attr('stroke', '#9dbbe0').attr('stroke-width', 1.6).attr('stroke-dasharray', '4 6').attr('opacity', .9);
+  const routeGlow = svg.append('path').attr('fill', 'none').attr('stroke', 'rgba(157,187,224,.25)').attr('stroke-width', 6).attr('stroke-linecap', 'round');
+  const pins = svg.append('g');
+  const plane = svg.append('g').attr('opacity', 0);
+  plane.append('circle').attr('r', 14).attr('fill', 'rgba(74,116,167,.35)');
+  plane.append('path').attr('d', 'M-9,0 L9,0 M2,-7 L5,0 L2,7 M-7,-3 L-5,0 L-7,3').attr('stroke', '#fff').attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round').attr('fill', 'none');
+
+  const interp = d3.geoInterpolate(DUSH, WAW);
+  const arc = { type: 'LineString', coordinates: d3.range(0, 1.0001, 0.01).map(interp) };
+
+  function layout() {
+    W = mapEl.clientWidth; H = mapEl.clientHeight;
+    svg.attr('viewBox', `0 0 ${W} ${H}`);
+    const frame = { type: 'MultiPoint', coordinates: [[8, 34], [80, 34], [8, 60], [80, 60]] };
+    projection = d3.geoMercator().fitExtent([[30, 40], [W - 30, H - 40]], frame);
+    path = d3.geoPath(projection);
+    gGrat.attr('d', path(d3.geoGraticule().step([10, 10])()));
+    gLand.selectAll('path').data(world.features).join('path')
+      .attr('d', path)
+      .attr('fill', d => focusIds.has(String(d.id)) ? '#24456e' : '#142a44')
+      .attr('stroke', d => focusIds.has(String(d.id)) ? 'rgba(157,187,224,.6)' : 'none')
+      .attr('stroke-width', .8);
+    gBord.attr('d', path(borders));
+    const d = path(arc);
+    route.attr('d', d); routeGlow.attr('d', d);
+    drawPins();
+    setRoute(state.route);
+  }
+
+  function pin(lonlat, name, sub, cls) {
+    const [x, y] = projection(lonlat);
+    const g = pins.append('g').attr('transform', `translate(${x},${y})`).attr('class', cls).attr('opacity', 0);
+    g.append('circle').attr('class', 'pulse').attr('r', 6).attr('fill', 'none').attr('stroke', '#9dbbe0').attr('stroke-width', 1.4);
+    g.append('circle').attr('r', 5).attr('fill', '#dceaf7');
+    g.append('text').attr('class', 'city').attr('x', 12).attr('y', 4).text(name);
+    g.append('text').attr('class', 'sub').attr('x', 12).attr('y', 19).text(sub);
+    return g;
+  }
+  function tag(lonlat, text, dy, cls) {
+    const [x, y] = projection(lonlat);
+    const g = pins.append('g').attr('transform', `translate(${x - 12},${y + dy})`).attr('class', cls).attr('opacity', 0);
+    const w = text.length * 7.2 + 18;
+    g.append('rect').attr('x', -w).attr('y', -11).attr('width', w).attr('height', 22).attr('rx', 11).attr('fill', '#dceaf7');
+    g.append('text').attr('class', 'tag').attr('x', -w + 9).attr('y', 4).text(text);
+    return g;
+  }
+  function drawPins() {
+    pins.selectAll('*').remove();
+    pin(DUSH, 'Dushanbe', 'Tajikistan', 'p-dush');
+    pin(WAW, 'Warsaw', 'Poland', 'p-waw');
+    tag(WAW, 'Sadykov Group', -26, 't-sg');
+    tag(WAW, 'Vistula University', 30, 't-vu');
+    applyVisibility(true);
+  }
+
+  const state = { step: -1, route: 0 };
+  let len = 0;
+  function setRoute(p) {
+    state.route = p;
+    len = route.node().getTotalLength();
+    routeGlow.attr('stroke-dasharray', `${len * p} ${len}`);
+    route.attr('opacity', p > 0 ? .9 : 0)
+      .attr('stroke-dasharray', '4 6')
+      .style('clip-path', null);
+    route.attr('mask', null);
+    route.attr('stroke-dashoffset', 0);
+    route.attr('d', path({ type: 'LineString', coordinates: d3.range(0, Math.max(0.0001, p) + 0.0001, 0.01).map(t => interp(Math.min(t, p))) }));
+    if (p > 0 && p < 1) {
+      const pt = route.node().getPointAtLength(route.node().getTotalLength());
+      const back = route.node().getPointAtLength(Math.max(0, route.node().getTotalLength() - 4));
+      const ang = Math.atan2(pt.y - back.y, pt.x - back.x) * 180 / Math.PI;
+      plane.attr('transform', `translate(${pt.x},${pt.y}) rotate(${ang})`).attr('opacity', 1);
+    } else plane.attr('opacity', 0);
+  }
+
+  function applyVisibility(instant) {
+    const s = state.step;
+    const show = (sel, on) => pins.select(sel).transition().duration(instant ? 0 : 600).attr('opacity', on ? 1 : 0);
+    show('.p-dush', s >= 0);
+    show('.p-waw', s >= 2 || (s === 1 && state.route >= 1));
+    show('.t-sg', s >= 2);
+    show('.t-vu', s >= 3);
+    steps.forEach((el, i) => { el.classList.toggle('on', i === s); el.classList.toggle('done', i < s); });
+  }
+
+  // pulses
+  d3.timer(el => {
+    pins.selectAll('.pulse').attr('r', 6 + (el / 60 % 18)).attr('opacity', 1 - (el / 60 % 18) / 18);
+  });
+
+  let timers = [];
+  const clear = () => { timers.forEach(t => t.stop ? t.stop() : clearTimeout(t)); timers = []; };
+  function go(i) {
+    state.step = i;
+    if (i <= 0) setRoute(0);
+    if (i >= 2) setRoute(1);
+    applyVisibility(false);
+  }
+  function fly(after) {
+    const t = d3.timer(el => {
+      const p = Math.min(1, d3.easeCubicInOut(el / 2600));
+      setRoute(p);
+      if (p >= 1) { t.stop(); applyVisibility(false); after && after(); }
+    });
+    timers.push(t);
+  }
+  function play() {
+    clear();
+    go(0);
+    timers.push(setTimeout(() => { go(1); fly(() => timers.push(setTimeout(() => { go(2); timers.push(setTimeout(() => go(3), 1800)); }, 500))); }, 1500));
+  }
+  steps.forEach((el, i) => el.addEventListener('click', () => {
+    clear();
+    if (i === 1) { go(0); go(1); setRoute(0); fly(); } else go(i);
+  }));
+  document.getElementById('replay').addEventListener('click', play);
+
+  layout();
+  window.addEventListener('resize', layout);
+
+  window.__pathPlay = play;
+  __ready = true;
+  if ((__pending || window.top === window) && !__played) { __played = true; play(); }
+  const report = () => { try { parent.postMessage({ type: 'path-height', h: document.documentElement.scrollHeight }, '*'); } catch (e) {} };
+  report(); window.addEventListener('resize', report); setTimeout(report, 400);
+})();
+</script>
+</body>
+</html>

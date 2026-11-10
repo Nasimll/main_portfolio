@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#081426">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.cdnfonts.com/css/nevera-132852" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+:root{--bg:#081426;--bg2:#0c1c33;--card:#142a44;--line:rgba(220,234,247,.14);--ink:#eef4fb;--ink85:rgba(220,234,247,.9);--dim:rgba(220,234,247,.76);--muted:rgba(220,234,247,.62);--accent:#9dbbe0;--btn:#4a74a7;--btn-ink:#ffffff;--field:#4a74a7}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;overflow-x:hidden}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+::selection{background:rgba(232,201,138,.3)}
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.an{animation:fu 1s cubic-bezier(.2,.7,.2,1) both}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img{max-width:100%}
+.mb{display:none}
+section[id]{scroll-margin-top:72px}
+/* tablets / large phones: collapse nav into a menu */
+@media (max-width:900px){
+  #nav{padding-left:max(18px,env(safe-area-inset-left))!important;padding-right:max(18px,env(safe-area-inset-right))!important;gap:12px!important}
+  #nav .nv{display:none!important;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0!important;padding:8px max(18px,env(safe-area-inset-left)) 14px;background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);color:var(--ink)}
+  #nav .nv a{padding:16px 2px;border-bottom:1px solid var(--line);font-size:14px}
+  #nav .nv a:last-child{border-bottom:0}
+  #nav[data-open] .nv{display:flex!important}
+  #nav .mb{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid color-mix(in srgb,currentColor 32%,transparent);border-radius:50%;background:color-mix(in srgb,currentColor 10%,transparent);color:inherit;cursor:pointer;padding:0}
+  #nav .hd-cv{display:none!important}
+  #nav .hd-r{margin-left:auto}
+}
+/* phones */
+@media (max-width:640px){
+  section{padding-left:max(18px,env(safe-area-inset-left))!important;padding-right:max(18px,env(safe-area-inset-right))!important}
+  #top{padding-top:96px!important;padding-bottom:40px!important}
+  #hero-copy .pill{white-space:normal!important;text-align:center;line-height:1.4!important;letter-spacing:.12em!important}
+  #hero-copy h1{font-size:clamp(38px,12.4vw,64px)!important}
+  #hero-copy p{font-size:16.5px!important}
+  #hero-copy a{padding:16px 24px!important}
+  #intro{padding-top:22vh!important}
+  #intro-word{font-size:clamp(44px,15.5vw,120px)!important;letter-spacing:.01em!important}
+  #intro-top>div{text-align:left!important;white-space:normal!important}
+  #about,#work,#stack,#path{padding-top:72px!important}
+  #work,#stack,#path{padding-bottom:72px!important}
+  #contact{padding-top:84px!important}
+  #about h2,#work h2,#stack h2,#path h2{font-size:clamp(30px,9vw,44px)!important}
+  .stat{padding:14px 4px!important}
+  .stat div:last-child{white-space:normal!important;letter-spacing:.1em!important}
+  #work [data-xcard] span,#stack div,#contact h2{white-space:normal!important}
+  [data-xcard]{padding:22px!important}
+  [data-xcard] [data-letters]>div:first-child{font-size:clamp(24px,8.2vw,40px)!important}
+  [data-xcard] [data-letters]>div:last-child{font-size:clamp(15px,5vw,24px)!important}
+  [data-xcard] img[alt="Sadykov Group logo"]{height:72px!important}
+  #contact-form{padding:22px!important}
+  #contact a[href^="tel"],#contact a[download]{flex:1 1 100%;justify-content:center}
+  #foot{white-space:normal!important;letter-spacing:.08em!important}
+}
+/* very narrow: Galaxy Fold (280px), small iPhones */
+@media (max-width:360px){
+  #nav .logo{font-size:28px!important}
+  #tog-label{display:none}
+  #nav #tog{padding:6px!important}
+  #hero-copy h1{font-size:34px!important}
+  .stat div:first-child{font-size:34px!important}
+}
+/* short landscape phones */
+@media (max-height:480px) and (orientation:landscape){
+  #top{min-height:auto!important;padding-top:84px!important}
+  #intro{padding-top:12vh!important}
+  #scroll-cue{display:none!important}
+}
+@media (hover:none){
+  a,button,[data-xcard]{-webkit-tap-highlight-color:transparent}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+}
+/* dual-screen / foldables (Surface Duo spanned): keep two-column copy off the hinge */
+@media (horizontal-viewport-segments:2){
+  .pgrid{column-gap:calc(env(viewport-segment-left 1 0,0px) - env(viewport-segment-right 0 0,0px) + 48px)!important}
+}
+</style></helmet>
+
+<div style="position:relative;width:100%;background:var(--bg)">
+
+<div style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none">
+  <div id="sky-night" style="position:absolute;inset:-4% 0 0;background:url('assets/sky-night-m.png') center 22%/cover no-repeat;will-change:transform"></div>
+  <div id="sky-day" style="position:absolute;inset:-4% 0 0;background:url('assets/sky-day-m.png') center 30%/cover no-repeat;-webkit-mask-image:linear-gradient(100deg,#000 0%,#000 40%,rgba(0,0,0,0) 52%);mask-image:linear-gradient(100deg,#000 0%,#000 40%,rgba(0,0,0,0) 52%);-webkit-mask-size:420% 100%;mask-size:420% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:-4800px 0;mask-position:-4800px 0;will-change:transform"></div>
+  <canvas id="stars" style="position:absolute;inset:0;width:100%;height:100%;display:block;will-change:transform"></canvas>
+  <div id="mtn-night" style="position:absolute;left:-3%;right:-3%;bottom:-8vh;height:112%;transform-origin:50% 100%;background:url('assets/mtn-night.png') center bottom/112% auto no-repeat;will-change:transform"></div>
+  <div id="mtn-day" style="position:absolute;left:-3%;right:-3%;bottom:-8vh;height:112%;transform-origin:50% 100%;background:url('assets/mtn-day.png') center bottom/112% auto no-repeat;-webkit-mask-image:linear-gradient(100deg,#000 0%,#000 40%,rgba(0,0,0,0) 52%);mask-image:linear-gradient(100deg,#000 0%,#000 40%,rgba(0,0,0,0) 52%);-webkit-mask-size:420% 100%;mask-size:420% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:-4800px 0;mask-position:-4800px 0;will-change:transform"></div>
+  <div id="ground" style="position:absolute;left:0;right:0;bottom:0;height:26vh;background:linear-gradient(180deg,rgba(6,9,18,0) 0%,rgba(6,9,18,.34) 52%,rgba(7,10,20,.92) 100%)"></div>
+  <div id="veil" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,15,.32) 0%,rgba(5,7,15,.14) 34%,rgba(5,7,15,.06) 62%,rgba(5,7,15,.38) 100%)"></div>
+  <div id="scrim" style="position:absolute;left:-10%;right:-10%;top:0;height:72%;background:radial-gradient(48% 44% at 50% 36%,rgba(6,10,20,.56) 0%,rgba(6,10,20,.36) 46%,rgba(6,10,20,.12) 76%,transparent 100%);filter:blur(28px);opacity:.42"></div>
+</div>
+
+<canvas id="field" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0;pointer-events:none;display:block"></canvas>
+
+<header id="nav" style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px clamp(18px,4vw,52px);backdrop-filter:blur(0px);color:#fff;transition:background .5s ease,backdrop-filter .5s ease,padding .4s ease,color .4s ease">
+  <a class="logo" href="#top" aria-label="Nasimjon Mullojonov — back to top" style="display:flex;align-items:center;font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:34px;line-height:1;letter-spacing:.06em;text-transform:uppercase;color:inherit;text-decoration:none">NM</a>
+  <nav class="nv" id="menu" style="display:flex;gap:clamp(14px,2.4vw,30px);font:500 13.2px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap">
+    <a href="#about" style="color:inherit;text-decoration:none">About</a>
+    <a href="#work" style="color:inherit;text-decoration:none">Work</a>
+    <a href="#stack" style="color:inherit;text-decoration:none">Stack</a>
+    <a href="#path" style="color:inherit;text-decoration:none">Path</a>
+    <a href="#contact" style="color:inherit;text-decoration:none">Contact</a>
+  </nav>
+  <div class="hd-r" style="display:flex;align-items:center;gap:11px">
+    <button id="tog" aria-label="Toggle day and night" style="display:inline-flex;align-items:center;gap:8px;padding:6px 7px 6px 13px;border:1px solid color-mix(in srgb,currentColor 32%,transparent);border-radius:100px;background:color-mix(in srgb,currentColor 10%,transparent);backdrop-filter:blur(8px);color:inherit;font:500 12px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;white-space:nowrap">
+      <span id="tog-label">Night</span>
+      <span id="tog-knob" style="display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:50%;background:#e8eeff;color:#0a1020;font-size:13.2px">☾</span>
+    </button>
+    <a class="hd-cv" href="assets/Nasimjon-Mullojonov-CV.docx" download="Nasimjon-Mullojonov-CV.docx" style="display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:100px;background:var(--btn);color:var(--btn-ink);font:600 13.8px/1 Manrope,sans-serif;text-decoration:none">Download CV ↓</a>
+    <button class="mb" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path id="menu-ic" d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+  </div>
+</header>
+
+<section id="top" style="position:relative;z-index:1;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:clamp(96px,16vh,150px) clamp(20px,5vw,56px) 60px;box-sizing:border-box;text-align:center">
+  <div id="hero-copy" style="display:flex;flex-direction:column;align-items:center;gap:15px;max-width:900px;will-change:transform,opacity">
+    <div class="an pill" style="animation-delay:.08s;display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#fff;white-space:nowrap">
+      <span style="width:5px;height:5px;background:#dceaf7;border-radius:50%"></span>Tajikistan, the heart of the mountains
+    </div>
+    <h1 class="an" style="animation-delay:.16s;margin:0;font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:clamp(48px,7.92vw,100.8px);line-height:1.02;letter-spacing:-.03em;color:#fff;text-shadow:0 2px 30px rgba(3,6,14,.72);text-wrap:balance">Man from the <em style="font-style:normal;color:#dceaf7;text-transform:uppercase;white-space:nowrap">Mountains</em></h1>
+    <p class="an" style="animation-delay:.24s;margin:0;max-width:540px;font:400 18px/1.7 Manrope,sans-serif;color:rgba(255,255,255,.9);text-shadow:0 1px 16px rgba(3,6,14,.8);text-wrap:pretty">Software engineer and product builder — frontend, backend, and the AI layer between them.</p>
+    <div class="an" style="animation-delay:.32s;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:4px">
+      <a href="assets/Nasimjon-Mullojonov-CV.docx" download="Nasimjon-Mullojonov-CV.docx" style="display:inline-flex;align-items:center;gap:9px;padding:17px 29px;border-radius:100px;background:#4a74a7;color:#fff;font:600 15px/1 Manrope,sans-serif;text-decoration:none">Download CV ↓</a>
+      <a href="#work" style="display:inline-flex;align-items:center;gap:9px;padding:17px 29px;border-radius:100px;border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.1);backdrop-filter:blur(8px);color:#fff;font:600 15px/1 Manrope,sans-serif;text-decoration:none">See selected work →</a>
+    </div>
+  </div>
+  <div id="scroll-cue" style="margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:8px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);white-space:nowrap">
+    <span style="animation:bob 2.6s ease-in-out infinite;display:inline-block;font-size:18px">↓</span>Scroll
+  </div>
+</section>
+
+<section id="intro" style="position:relative;z-index:1;margin-top:-6vh;padding:30vh clamp(20px,5vw,56px) 0;background:linear-gradient(180deg,transparent 0%,color-mix(in srgb,var(--bg) 30%,transparent) 16%,color-mix(in srgb,var(--bg) 78%,transparent) 40%,var(--bg) 66%,var(--bg) 100%)">
+  <div style="max-width:1240px;margin:0 auto">
+    <div id="intro-top" style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:20px">
+      <div data-rise data-reveal="name">
+        <div style="font:700 clamp(26.4px,3.12vw,40.8px)/1.1 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)">Nasimjon Mullojonov</div>
+        <div style="margin-top:7px;font:500 13.2px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap">Dushanbe → Warsaw</div>
+      </div>
+      <div data-rise data-reveal="role" style="text-align:right;font:500 12.6px/1.8 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">
+        <div style="font:500 15.6px/1.6 Manrope,sans-serif;letter-spacing:.14em">AI engineer</div>
+        <div style="font:500 15.6px/1.6 Manrope,sans-serif;letter-spacing:.14em">Product builder</div>
+      </div>
+    </div>
+
+    <div data-intro-stack style="position:relative;margin-top:clamp(18px,4vh,46px);display:flex;justify-content:center;align-items:flex-end">
+      <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:clamp(48px,9vw,120px);display:flex;justify-content:center;pointer-events:none">
+        <span id="intro-word" style="font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:clamp(76.8px,18.6vw,283.2px);line-height:.9;letter-spacing:.02em;transform:scaleY(1.3);transform-origin:50% 100%;text-transform:uppercase;color:var(--ink);white-space:nowrap;text-shadow:1px 1px 0 rgba(120,114,100,.5),2px 2px 0 rgba(92,87,76,.32),0 3px 3px rgba(0,0,0,.24),0 12px 26px rgba(0,0,0,.34);will-change:transform">Builder</span>
+      </div>
+      <div aria-hidden="true" style="position:absolute;left:50%;bottom:6%;z-index:1;width:clamp(260px,40vw,520px);height:clamp(300px,46vw,600px);transform:translateX(-50%);background:radial-gradient(50% 50% at 50% 50%,rgba(74,116,167,.42) 0%,rgba(74,116,167,.16) 45%,rgba(74,116,167,0) 72%);filter:blur(30px);pointer-events:none"></div>
+      <img id="intro-photo" src="assets/portrait-v4.png" alt="Nasimjon Mullojonov" style="position:relative;z-index:2;display:block;width:auto;height:clamp(340px,56vw,660px);margin-bottom:0;filter:contrast(1.04) saturate(1.02);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 95%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,#000 0%,#000 95%,rgba(0,0,0,0) 100%);will-change:transform">
+    </div>
+
+    <div style="position:relative;z-index:3;margin-top:34px;padding-bottom:104px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px;border-top:1px solid var(--line);padding-top:26px">
+      <p data-rise style="margin:0;max-width:520px;font:400 17.4px/1.75 Manrope,sans-serif;color:var(--dim);text-wrap:pretty">I build with AI the way I build anything else — to remove work a person shouldn't be doing. Assistants that answer first, agents that keep records in sync, LLM-assisted flows wired into products people already use.</p>
+      <div data-rise style="display:flex;flex-wrap:wrap;gap:8px">
+        <span style="padding:8px 13px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">LLM flows</span>
+        <span style="padding:8px 13px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">Agents &amp; bots</span>
+        <span style="padding:8px 13px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink85);min-width:0">Automation</span>
+        <span style="padding:8px 13px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">Python</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="position:relative;z-index:1;padding:110px clamp(20px,5vw,56px) 0;background:transparent">
+  <div style="max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(80px,10vw,120px)">
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));column-gap:clamp(40px,6vw,88px);row-gap:40px;align-items:stretch" class="pgrid">
+      <div data-rise style="position:relative;min-height:clamp(320px,38vw,520px);height:100%;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.45)">
+        <img src="assets/workspace.jpg" alt="Nasimjon at his desk, building the Sadykov Group site" style="display:block;width:100%;height:100%;object-fit:cover;object-position:28% 50%;position:absolute;inset:0">
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:28px;align-items:flex-start;min-width:0">
+        <h2 data-rise style="margin:0;font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:clamp(38.4px,4.8vw,62.4px);line-height:1.08;letter-spacing:-.02em;color:var(--ink);text-wrap:balance">I turn ideas into working products.</h2>
+        <p data-rise style="margin:0;max-width:520px;font:400 18px/1.75 Manrope,sans-serif;color:var(--dim);text-wrap:pretty">Computer engineering student in Warsaw, from Dushanbe. Frontend is my strongest craft. At Sadykov Group I designed and shipped the company's site and recruitment platform — interface, backend and the automation around it — then owned its roadmap and marketing funnel. I reach for AI where it removes work a person shouldn't be doing.</p>
+        <a data-rise href="#contact" style="display:inline-flex;align-items:center;gap:9px;margin-top:6px;padding:17px 31px;border-radius:100px;background:var(--btn);color:var(--btn-ink);font:600 15px/1 Manrope,sans-serif;text-decoration:none">Contact me</a>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(40px,6vw,80px);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <h3 data-rise style="margin:0;white-space:nowrap;font:700 clamp(31.2px,3.36vw,40.8px)/1.15 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)">My skills</h3>
+        <p data-rise style="margin:0;max-width:460px;font:400 17.4px/1.7 Manrope,sans-serif;color:var(--dim);text-wrap:pretty">Frontend first, with backend, AI and product work around it.</p>
+        <div data-rise style="display:flex;flex-direction:column;gap:24px;margin-top:6px">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:600 19.2px/1.2 Manrope,sans-serif;color:var(--ink)"><span>Frontend — React, JavaScript, UI</span><span style="font:500 15.6px/1 Manrope,sans-serif;color:var(--accent)">90%</span></div>
+            <div style="position:relative;height:7px;background:rgba(220,234,247,.14);overflow:hidden;border-radius:7px">
+              <div data-bar="90" style="position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:7px;background:linear-gradient(90deg,#4a74a7,#dceaf7);box-shadow:0 0 14px rgba(157,187,224,.45);transition:width 1.6s cubic-bezier(.2,.7,.2,1)"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:600 19.2px/1.2 Manrope,sans-serif;color:var(--ink)"><span>Product — roadmap, analytics, marketing</span><span style="font:500 15.6px/1 Manrope,sans-serif;color:var(--accent)">70%</span></div>
+            <div style="position:relative;height:7px;background:rgba(220,234,247,.14);overflow:hidden;border-radius:7px">
+              <div data-bar="70" style="position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:7px;background:linear-gradient(90deg,#4a74a7,#dceaf7);box-shadow:0 0 14px rgba(157,187,224,.45);transition:width 1.6s cubic-bezier(.2,.7,.2,1)"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:600 19.2px/1.2 Manrope,sans-serif;color:var(--ink)"><span>AI &amp; automation — Python, LLM flows</span><span style="font:500 15.6px/1 Manrope,sans-serif;color:var(--accent)">50%</span></div>
+            <div style="position:relative;height:7px;background:rgba(220,234,247,.14);overflow:hidden;border-radius:7px">
+              <div data-bar="50" style="position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:7px;background:linear-gradient(90deg,#4a74a7,#dceaf7);box-shadow:0 0 14px rgba(157,187,224,.45);transition:width 1.6s cubic-bezier(.2,.7,.2,1)"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:600 19.2px/1.2 Manrope,sans-serif;color:var(--ink)"><span>Backend — Node, Express, SQL</span><span style="font:500 15.6px/1 Manrope,sans-serif;color:var(--accent)">45%</span></div>
+            <div style="position:relative;height:7px;background:rgba(220,234,247,.14);overflow:hidden;border-radius:7px">
+              <div data-bar="45" style="position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:7px;background:linear-gradient(90deg,#4a74a7,#dceaf7);box-shadow:0 0 14px rgba(157,187,224,.45);transition:width 1.6s cubic-bezier(.2,.7,.2,1)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-rise style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:20px 8px" class="stat">
+          <div style="font:700 clamp(40.8px,4.8vw,60px)/1 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)">~150</div>
+          <div style="font:500 12.6px/1.4 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">Leads generated</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:20px 8px" class="stat">
+          <div style="font:700 clamp(40.8px,4.8vw,60px)/1 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)">+30%</div>
+          <div style="font:500 12.6px/1.4 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">Site traffic</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:20px 8px" class="stat">
+          <div style="font:700 clamp(40.8px,4.8vw,60px)/1 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)">2</div>
+          <div style="font:500 12.6px/1.4 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">Major companies served</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:20px 8px" class="stat">
+          <div style="font:700 clamp(40.8px,4.8vw,60px)/1 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)">5</div>
+          <div style="font:500 12.6px/1.4 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">Languages</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <h3 data-rise style="margin:0;font:700 clamp(31.2px,3.36vw,40.8px)/1.15 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)">Languages</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:14px">
+        <div data-rise style="display:flex;flex-direction:column;gap:14px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--card)">
+          <div style="font:700 20.4px/1.2 Manrope,sans-serif;color:var(--ink)">English</div>
+          <div style="display:flex;gap:5px"><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span></div>
+          <div style="font:500 12.6px/1.3 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Professional · B2</div>
+        </div>
+        <div data-rise style="display:flex;flex-direction:column;gap:14px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--card)">
+          <div style="font:700 20.4px/1.2 Manrope,sans-serif;color:var(--ink)">Russian</div>
+          <div style="display:flex;gap:5px"><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span></div>
+          <div style="font:500 12.6px/1.3 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);min-width:0">Fluent</div>
+        </div>
+        <div data-rise style="display:flex;flex-direction:column;gap:14px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--card)">
+          <div style="font:700 20.4px/1.2 Manrope,sans-serif;color:var(--ink)">Persian</div>
+          <div style="display:flex;gap:5px"><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span></div>
+          <div style="font:500 12.6px/1.3 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);min-width:0">Fluent</div>
+        </div>
+        <div data-rise style="display:flex;flex-direction:column;gap:14px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--card)">
+          <div style="font:700 20.4px/1.2 Manrope,sans-serif;color:var(--ink)">Turkish</div>
+          <div style="display:flex;gap:5px"><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span></div>
+          <div style="font:500 12.6px/1.3 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);min-width:0">A1</div>
+        </div>
+        <div data-rise style="display:flex;flex-direction:column;gap:14px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--card)">
+          <div style="font:700 20.4px/1.2 Manrope,sans-serif;color:var(--ink)">Polish</div>
+          <div style="display:flex;gap:5px"><span style="flex:1;height:3px;border-radius:2px;background:var(--accent)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span><span style="flex:1;height:3px;border-radius:2px;background:var(--line)"></span></div>
+          <div style="font:500 12.6px/1.3 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);min-width:0">A1</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="position:relative;margin:clamp(90px,11vw,130px) calc(-1 * clamp(20px,5vw,56px)) 0;overflow:hidden;min-height:clamp(380px,46vw,560px);display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 24px;box-sizing:border-box">
+    <div id="about-bg" style="position:absolute;inset:-12% 0;background:url('assets/dushanbe-night.jpg') center 58%/cover no-repeat;will-change:transform"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,rgba(8,20,38,.45) 22%,rgba(8,20,38,.42) 70%,var(--bg) 100%)"></div>
+    <div data-rise style="position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;max-width:680px">
+      <h2 style="margin:0;font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:clamp(38.4px,5.52vw,72px);line-height:1.08;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.6);text-wrap:balance">Ready to build the next thing with you</h2>
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:9px;margin-top:8px;padding:17px 31px;border-radius:100px;background:#4a74a7;color:#fff;font:600 15px/1 Manrope,sans-serif;text-decoration:none">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="position:relative;z-index:1;padding:110px clamp(20px,5vw,56px);background:transparent">
+  <div style="max-width:1120px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px">
+      <div>
+        <h2 data-rise style="margin:0;font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:clamp(33.6px,4.08vw,50.4px);line-height:1.15;letter-spacing:-.02em;color:var(--ink)">Things I shipped</h2>
+      </div>
+      <a data-rise href="https://github.com/Nasimll" target="_blank" rel="noopener" style="font:500 13.2px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap">All repos on GitHub →</a>
+    </div>
+    <div style="margin-top:44px">
+      <div data-rise data-xcard tabindex="0" style="position:relative;overflow:hidden;border:1px solid rgba(238,241,248,.16);border-radius:18px;background:linear-gradient(150deg,#14251a 0%,#0c1610 60%,#070a14 100%);padding:clamp(26px,4vw,48px);min-height:clamp(300px,34vw,400px);display:flex;flex-direction:column;justify-content:space-between;gap:26px;cursor:pointer;transition:border-color .4s ease">
+        <img data-xmark src="assets/sg-mark.png" alt="" aria-hidden="true" style="position:absolute;right:-20px;top:50%;height:130%;width:auto;transform:translateY(-50%);opacity:.09;pointer-events:none;transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+        <div style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#f3ecd2;white-space:nowrap">Big project · 2025—26</span>
+          <span data-xhint style="display:inline-flex;align-items:center;gap:8px;transition:opacity .4s ease"><span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(238,241,248,.62);white-space:nowrap">Hover for details</span><span style="width:6px;height:6px;border-radius:50%;background:#e8c98a"></span></span>
+        </div>
+        <div style="position:relative;display:flex;align-items:center;gap:clamp(18px,3vw,34px)">
+          <img src="assets/sg-mark.png" alt="Sadykov Group logo" style="height:clamp(84px,11vw,140px);width:auto;flex:none">
+          <div data-letters style="display:flex;flex-direction:column;gap:6px;font-family:Nevera,Manrope,sans-serif;font-weight:400;color:#f3ecd2;line-height:1">
+            <div style="font-size:clamp(32px,5.4vw,76px);letter-spacing:.1em"><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 0ms">S</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 45ms">A</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 90ms">D</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 135ms">Y</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 180ms">K</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 225ms">O</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 270ms">V</span></span></div>
+            <div style="font-size:clamp(20px,2.9vw,40px);letter-spacing:.2em"><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 315ms">G</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 360ms">R</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 405ms">O</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 450ms">U</span></span><span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span data-letter style="display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1) 495ms">P</span></span></div>
+          </div>
+        </div>
+        <div style="position:relative"><div data-xinfo style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .6s cubic-bezier(.2,.7,.2,1),opacity .45s ease">
+          <div style="overflow:hidden;min-height:0">
+            <div style="display:flex;flex-direction:column;gap:22px;padding-top:6px">
+              <div style="position:relative;overflow:hidden;padding:14px 0;border-top:1px solid rgba(238,241,248,.12);border-bottom:1px solid rgba(238,241,248,.12);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)">
+                <div style="display:flex;width:max-content;animation:mq 28s linear infinite"><div style="display:flex"><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Designed the site<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Built the frontend<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Wired the backend<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Automated recruiting<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Ran the marketing funnel<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Owned the roadmap<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span></div><div style="display:flex"><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Designed the site<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Built the frontend<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Wired the backend<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Automated recruiting<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Ran the marketing funnel<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span><span style="display:inline-flex;align-items:center;gap:14px;padding-right:14px;font:500 14.4px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Owned the roadmap<span style="width:5px;height:5px;background:#f3ecd2;transform:rotate(45deg)"></span></span></div></div>
+              </div>
+              <p style="margin:0;max-width:660px;font:400 17.4px/1.7 Manrope,sans-serif;color:rgba(238,241,248,.8);text-wrap:pretty">An employment agency helping foreigners find work in Poland. I designed and built their multilingual site and the recruitment platform behind it — React frontend, Express and SQLite, Google Apps Script linking the recruiters’ sheets — then ran its marketing and roadmap.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="padding:7px 12px;border:1px solid rgba(238,241,248,.18);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">React</span><span style="padding:7px 12px;border:1px solid rgba(238,241,248,.18);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Express</span><span style="padding:7px 12px;border:1px solid rgba(238,241,248,.18);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">SQLite</span><span style="padding:7px 12px;border:1px solid rgba(238,241,248,.18);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">Apps Script</span><span style="padding:7px 12px;border:1px solid rgba(238,241,248,.18);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,241,248,.82);white-space:nowrap">i18n</span></div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px">
+                <div style="display:flex;flex-wrap:wrap;gap:30px">
+                  <span style="display:flex;flex-direction:column;gap:5px"><strong style="font:700 22.8px/1 Manrope,sans-serif;color:#fff">~150</strong><span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(238,241,248,.62);white-space:nowrap">leads generated</span></span>
+                  <span style="display:flex;flex-direction:column;gap:5px"><strong style="font:700 22.8px/1 Manrope,sans-serif;color:#fff">+30%</strong><span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(238,241,248,.62);white-space:nowrap">site traffic</span></span>
+                </div>
+                <a href="https://www.sadykovgroup.pl/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;padding:16px 26px;border-radius:100px;background:#f3ecd2;color:#15150f;font:600 15px/1 Manrope,sans-serif;text-decoration:none">Visit sadykovgroup.pl ↗</a>
+              </div>
+            </div></div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:70px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <h3 data-rise style="white-space:nowrap;margin:0;font:700 clamp(26.4px,2.88vw,33.6px)/1.2 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)">Mini projects</h3>
+      <div data-rise><span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap">Hover a card to open it</span></div>
+    </div>
+    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:14px;align-items:start">
+      <div data-rise data-xcard tabindex="0" style="display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer;transition:border-color .4s ease,background .4s ease">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);min-width:0">Automation</span><span data-xhint style="font:500 16.8px/1 Manrope,sans-serif;color:var(--accent);transition:transform .4s ease">+</span></div>
+          <div style="font:600 22.8px/1.25 Manrope,sans-serif;color:var(--ink)">Telegram auto-reply</div>
+          <div data-xinfo style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .6s cubic-bezier(.2,.7,.2,1),opacity .45s ease">
+          <div style="overflow:hidden;min-height:0">
+            <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px">
+              <p style="margin:0;font:400 16.2px/1.65 Manrope,sans-serif;color:var(--dim);text-wrap:pretty">A Telethon client that answers off-hours messages for the recruiting team, so nobody waits until morning for a first reply.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:7px"><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">Python</span><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">Telethon</span></div>
+              <a href="https://github.com/Nasimll/auto_reply" target="_blank" rel="noopener" style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap">View on GitHub ↗</a>
+            </div></div>
+        </div>
+        </div>
+      <div data-rise data-xcard tabindex="0" style="display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer;transition:border-color .4s ease,background .4s ease">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);min-width:0">Desktop · data</span><span data-xhint style="font:500 16.8px/1 Manrope,sans-serif;color:var(--accent);transition:transform .4s ease">+</span></div>
+          <div style="font:600 22.8px/1.25 Manrope,sans-serif;color:var(--ink)">Library system</div>
+          <div data-xinfo style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .6s cubic-bezier(.2,.7,.2,1),opacity .45s ease">
+          <div style="overflow:hidden;min-height:0">
+            <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px">
+              <p style="margin:0;font:400 16.2px/1.65 Manrope,sans-serif;color:var(--dim);text-wrap:pretty">A WinForms library manager over a relational schema — lending, returns, members and stock, with hand-written CRUD and validation.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:7px"><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">C#</span><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">WinForms</span><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">SQL</span></div>
+              <a href="https://github.com/Nasimll/WF-LibrarySystem" target="_blank" rel="noopener" style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap">View on GitHub ↗</a>
+            </div></div>
+        </div>
+        </div>
+      <div data-rise data-xcard tabindex="0" style="display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer;transition:border-color .4s ease,background .4s ease">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);min-width:0">Desktop · forms</span><span data-xhint style="font:500 16.8px/1 Manrope,sans-serif;color:var(--accent);transition:transform .4s ease">+</span></div>
+          <div style="font:600 22.8px/1.25 Manrope,sans-serif;color:var(--ink)">University admissions</div>
+          <div data-xinfo style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .6s cubic-bezier(.2,.7,.2,1),opacity .45s ease">
+          <div style="overflow:hidden;min-height:0">
+            <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px">
+              <p style="margin:0;font:400 16.2px/1.65 Manrope,sans-serif;color:var(--dim);text-wrap:pretty">Applicant intake, document checks and status tracking, modelled the way a registrar’s office moves a file.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:7px"><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">C#</span><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">SQL</span></div>
+              <a href="https://github.com/Nasimll/WF-University-Application" target="_blank" rel="noopener" style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap">View on GitHub ↗</a>
+            </div></div>
+        </div>
+        </div>
+      <div data-rise data-xcard tabindex="0" style="display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer;transition:border-color .4s ease,background .4s ease">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);min-width:0">Frontend practice</span><span data-xhint style="font:500 16.8px/1 Manrope,sans-serif;color:var(--accent);transition:transform .4s ease">+</span></div>
+          <div style="font:600 22.8px/1.25 Manrope,sans-serif;color:var(--ink)">Interface studies</div>
+          <div data-xinfo style="display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .6s cubic-bezier(.2,.7,.2,1),opacity .45s ease">
+          <div style="overflow:hidden;min-height:0">
+            <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px">
+              <p style="margin:0;font:400 16.2px/1.65 Manrope,sans-serif;color:var(--dim);text-wrap:pretty">Small interfaces built from scratch — layout, state and interaction without a framework.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:7px"><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">HTML</span><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">CSS</span><span style="padding:7px 12px;border:1px solid var(--line);border-radius:100px;font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink85);white-space:nowrap">JavaScript</span></div>
+              <a href="https://github.com/Nasimll/Projects-HTML-CSS-JS" target="_blank" rel="noopener" style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap">View on GitHub ↗</a>
+            </div></div>
+        </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" style="position:relative;z-index:1;padding:110px clamp(20px,5vw,56px);background:transparent">
+  <div style="max-width:1120px;margin:0 auto">
+    <h2 data-rise style="margin:0 0 44px;font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:clamp(33.6px,4.08vw,50.4px);line-height:1.15;letter-spacing:-.02em;color:var(--ink)">What I reach for</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:16px">
+      <div data-rise style="padding:26px;border:1px solid var(--line);border-radius:16px;background:var(--card)">
+        <div style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);white-space:nowrap">Frontend</div>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;font:500 18px/1.4 Manrope,sans-serif;color:var(--ink)"><span>React</span><span>JavaScript</span><span>HTML &amp; CSS</span><span>Responsive UI</span></div>
+      </div>
+      <div data-rise style="padding:26px;border:1px solid var(--line);border-radius:16px;background:var(--card)">
+        <div style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);white-space:nowrap">Backend</div>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;font:500 18px/1.4 Manrope,sans-serif;color:var(--ink)"><span>Node &amp; Express</span><span>REST APIs</span><span>SQL &amp; SQLite</span><span>C# · Java</span></div>
+      </div>
+      <div data-rise style="padding:26px;border:1px solid var(--line);border-radius:16px;background:var(--card)">
+        <div style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);white-space:nowrap">AI &amp; automation</div>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;font:500 18px/1.4 Manrope,sans-serif;color:var(--ink)"><span>Python</span><span>LLM-assisted flows</span><span>Bots &amp; agents</span><span>Apps Script</span></div>
+      </div>
+      <div data-rise style="padding:26px;border:1px solid var(--line);border-radius:16px;background:var(--card)">
+        <div style="font:500 12.6px/1 Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);white-space:nowrap">Product</div>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;font:500 18px/1.4 Manrope,sans-serif;color:var(--ink)"><span>Roadmapping</span><span>Analytics</span><span>Ops &amp; process</span><span>Solo delivery</span></div>
+      </div>
+    </div>
+    <div data-rise style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;font:400 15px/1.5 Manrope,sans-serif;color:var(--dim);text-align:center">
+      <span>Explore the full stack, projects and experience in my CV.</span>
+      <a href="assets/Nasimjon-Mullojonov-CV.docx" download="Nasimjon-Mullojonov-CV.docx" style="display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:100px;border:1px solid var(--line);background:#142a44;color:var(--ink);font:600 14px/1 Manrope,sans-serif;text-decoration:none;white-space:nowrap">Download CV ↓</a>
+    </div>
+  </div>
+</section>
+
+<section id="path" style="position:relative;z-index:1;padding:110px clamp(20px,5vw,56px)">
+  <div style="max-width:1120px;margin:0 auto">
+    <h2 data-rise style="margin:0 0 40px;font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:clamp(33.6px,4.08vw,50.4px);line-height:1.15;letter-spacing:.01em;color:var(--ink)">How I got here</h2>
+    <div data-rise style="position:relative">
+      <iframe id="path-map" src="Path Map.html" title="Journey map from Dushanbe to Warsaw" style="display:block;width:100%;height:600px;border:0;background:#081426;color-scheme:dark"></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="position:relative;z-index:1;padding:130px clamp(20px,5vw,56px) 70px">
+  <div style="max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));align-items:center;row-gap:48px" class="pgrid">
+
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:24px;min-width:0">
+      <h2 data-rise style="margin:0;font-family:Nevera,Manrope,sans-serif;font-weight:400;font-size:clamp(28px,3.9vw,56px);line-height:1.1;letter-spacing:.01em;color:#eef4fb;text-wrap:balance;max-width:100%">Let's start a conversation</h2>
+      <p data-rise style="margin:0;max-width:460px;font:400 18.6px/1.7 Manrope,sans-serif;color:rgba(220,234,247,.76);text-wrap:pretty">Hiring, building something, or just curious about the work — write to me and I'll reply within a day.</p>
+
+      <div data-rise style="margin-top:18px;width:100%;display:flex;flex-direction:column;gap:12px">
+        <div style="font:500 13.2px/1 Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#9dbbe0;white-space:nowrap">Stay connected</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px">
+          <a href="https://linkedin.com/in/nasimmulladzhanov" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid rgba(220,234,247,.18);border-radius:14px;background:#142a44;text-decoration:none;color:#eef4fb;transition:border-color .3s ease,background .3s ease,transform .3s ease" style-hover="border-color:#4a74a7;background:rgba(74,116,167,.14);transform:translateY(-2px)">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#4a74a7;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.6 8.65 21 11.2 21 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z"></path></svg></span>
+            <span style="display:flex;flex-direction:column;gap:5px;min-width:0"><span style="font:600 18px/1 Manrope,sans-serif">LinkedIn</span><span style="font:400 15px/1.2 Manrope,sans-serif;color:rgba(220,234,247,.7);overflow:hidden;text-overflow:ellipsis">in/nasimmulladzhanov</span></span>
+            <span style="margin-left:auto;color:#9dbbe0">↗</span>
+          </a>
+          <a href="https://github.com/Nasimll" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid rgba(220,234,247,.18);border-radius:14px;background:#142a44;text-decoration:none;color:#eef4fb;transition:border-color .3s ease,background .3s ease,transform .3s ease" style-hover="border-color:#4a74a7;background:rgba(74,116,167,.14);transform:translateY(-2px)">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#4a74a7;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"></path></svg></span>
+            <span style="display:flex;flex-direction:column;gap:5px;min-width:0"><span style="font:600 18px/1 Manrope,sans-serif">GitHub</span><span style="font:400 15px/1.2 Manrope,sans-serif;color:rgba(220,234,247,.7);overflow:hidden;text-overflow:ellipsis">github.com/Nasimll</span></span>
+            <span style="margin-left:auto;color:#9dbbe0">↗</span>
+          </a>
+          <a href="mailto:nasimjonmullojonov@gmail.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid rgba(220,234,247,.18);border-radius:14px;background:#142a44;text-decoration:none;color:#eef4fb;transition:border-color .3s ease,background .3s ease,transform .3s ease" style-hover="border-color:#4a74a7;background:rgba(74,116,167,.14);transform:translateY(-2px)">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#4a74a7;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></span>
+            <span style="display:flex;flex-direction:column;gap:5px;min-width:0"><span style="font:600 18px/1 Manrope,sans-serif">Email</span><span style="font:400 15px/1.2 Manrope,sans-serif;color:rgba(220,234,247,.7);overflow:hidden;text-overflow:ellipsis">nasimjonmullojonov@gmail.com</span></span>
+            <span style="margin-left:auto;color:#9dbbe0">↗</span>
+          </a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px">
+          <a href="assets/Nasimjon-Mullojonov-CV.docx" download="Nasimjon-Mullojonov-CV.docx" style="display:inline-flex;align-items:center;gap:9px;padding:16px 26px;border-radius:100px;background:#4a74a7;color:#fff;font:600 15px/1 Manrope,sans-serif;text-decoration:none">Download CV ↓</a>
+          <a href="tel:+48575416431" style="display:inline-flex;align-items:center;padding:16px 26px;border-radius:100px;background:#142a44;border:1px solid rgba(220,234,247,.22);color:#eef4fb;font:600 15px/1 Manrope,sans-serif;text-decoration:none">+48 575 416 431</a>
+        </div>
+      </div>
+    </div>
+
+    <form id="contact-form" data-rise style="display:flex;flex-direction:column;justify-content:center;gap:18px;padding:clamp(28px,4vw,44px);min-width:0;box-sizing:border-box;border:1px solid rgba(220,234,247,.18);border-radius:20px;background:#142a44;text-align:left">
+        <label style="display:flex;flex-direction:column;gap:9px"><span style="font:600 15.6px/1 Manrope,sans-serif;color:#eef4fb">Your full name</span><span style="position:relative;display:flex"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(220,234,247,.62)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg><input name="name" required="required" placeholder="Jane Doe" style="width:100%;box-sizing:border-box;padding:13px 14px 13px 40px;border:1px solid rgba(220,234,247,.22);border-radius:10px;background:#0c1c33;color:#eef4fb;font:400 16.8px/1.4 Manrope,sans-serif;outline:none;transition:border-color .3s ease,box-shadow .3s ease" style-focus="border-color:#4a74a7;box-shadow:0 0 0 3px rgba(74,116,167,.35)"></span></label>
+        <label style="display:flex;flex-direction:column;gap:9px"><span style="font:600 15.6px/1 Manrope,sans-serif;color:#eef4fb">Work email address</span><span style="position:relative;display:flex"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(220,234,247,.62)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg><input name="email" type="email" required="required" placeholder="jane@company.com" style="width:100%;box-sizing:border-box;padding:13px 14px 13px 40px;border:1px solid rgba(220,234,247,.22);border-radius:10px;background:#0c1c33;color:#eef4fb;font:400 16.8px/1.4 Manrope,sans-serif;outline:none;transition:border-color .3s ease,box-shadow .3s ease" style-focus="border-color:#4a74a7;box-shadow:0 0 0 3px rgba(74,116,167,.35)"></span></label>
+        <label style="display:flex;flex-direction:column;gap:9px"><span style="font:600 15.6px/1 Manrope,sans-serif;color:#eef4fb">Message details</span><textarea name="message" required="required" rows="5" placeholder="Tell me about the role or the project…" style="width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid rgba(220,234,247,.22);border-radius:10px;background:#0c1c33;color:#eef4fb;font:400 16.8px/1.4 Manrope,sans-serif;outline:none;transition:border-color .3s ease,box-shadow .3s ease;resize:vertical;min-height:130px" style-focus="border-color:#4a74a7;box-shadow:0 0 0 3px rgba(74,116,167,.35)"></textarea></label>
+        <button type="submit" style="margin-top:4px;padding:18px 24px;border:none;border-radius:100px;background:#4a74a7;color:#fff;font:600 16.8px/1 Manrope,sans-serif;cursor:pointer;transition:background .3s ease,transform .3s ease" style-hover="background:#5a86bb;transform:translateY(-1px)">Send message</button>
+        <div id="contact-note" style="min-height:16px;font:400 15px/1.4 Manrope,sans-serif;color:rgba(220,234,247,.62);text-align:center"></div>
+    </form>
+
+  </div>
+  <div style="max-width:1120px;margin:90px auto 0;padding-top:26px;border-top:1px solid rgba(220,234,247,.14);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font:500 12.6px/1.5 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(220,234,247,.62);white-space:nowrap" id="foot">
+    <span>Nasimjon Mullojonov — Warsaw, Poland</span>
+    <a href="https://linkedin.com/in/nasimmulladzhanov" target="_blank" rel="noopener" style="text-decoration:none">LinkedIn ↗</a>
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  componentDidMount() { this.boot(); }
+  componentDidUpdate() { this.boot(); }
+
+  boot() {
+    const sky = document.getElementById('stars');
+    if (!sky) return;
+    if (window.__pfRaf) cancelAnimationFrame(window.__pfRaf);
+    if (window.__pfNight === undefined) window.__pfNight = true;
+
+    const q = id => document.getElementById(id);
+
+    const applyMode = () => {
+      const isN = window.__pfNight;
+      const kn = q('tog-knob'), lb = q('tog-label');
+      if (kn) { kn.textContent = isN ? '☾' : '☀'; kn.style.background = isN ? '#e8eeff' : '#ffd479'; }
+      if (lb) lb.textContent = isN ? 'Night' : 'Day';
+    };
+
+    if (!this._bound) {
+      this._bound = true;
+      document.addEventListener('click', e => {
+        const nv = q('nav'), mbtn = q('menu-btn');
+        if (nv && mbtn) {
+          const setMenu = o => { if (o) nv.setAttribute('data-open', ''); else nv.removeAttribute('data-open'); mbtn.setAttribute('aria-expanded', o ? 'true' : 'false'); const ic = q('menu-ic'); if (ic) ic.setAttribute('d', o ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16'); };
+          if (e.target.closest('#menu-btn')) { setMenu(!nv.hasAttribute('data-open')); return; }
+          if (e.target.closest('#menu a') || !e.target.closest('#nav')) setMenu(false);
+        }
+        if (!e.target.closest('#tog')) return;
+        window.__pfNight = !window.__pfNight;
+        applyMode();
+      });
+    }
+    applyMode();
+
+    // touch devices have no hover: say "tap"
+    if (window.matchMedia && matchMedia('(hover: none)').matches) {
+      document.querySelectorAll('span').forEach(sp => {
+        if (sp.children.length) return;
+        if (sp.textContent === 'Hover for details') sp.textContent = 'Tap for details';
+        else if (sp.textContent === 'Hover a card to open it') sp.textContent = 'Tap a card to open it';
+      });
+    }
+
+    // reveal-on-scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        const sibs = [...(el.parentElement ? el.parentElement.children : [])].filter(c => c.hasAttribute('data-rise'));
+        const i = Math.max(0, sibs.indexOf(el));
+        el.style.transitionDelay = Math.min(i * 70, 280) + 'ms';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    // staged entrance for the intro: name, role, word, photo
+    const stage = [
+      ['[data-reveal="name"]', 0, 'translateY(26px)'],
+      ['[data-reveal="role"]', 120, 'translateY(26px)'],
+      ['#intro-word', 220, 'translateY(46px) scaleY(1.3)'],
+      ['#intro-photo', 340, 'translateY(56px)'],
+    ];
+    const introIO = new IntersectionObserver(ents => {
+      ents.forEach(en => {
+        if (!en.isIntersecting) return;
+        stage.forEach(([sel, delay]) => {
+          const el = document.querySelector(sel);
+          if (!el) return;
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = sel === '#intro-word' ? 'scaleY(1.3)' : 'none';
+            el.dataset.revealed = '1';
+          }, delay);
+        });
+        introIO.disconnect();
+      });
+    }, { threshold: 0.18 });
+    stage.forEach(([sel, , from]) => {
+      const el = document.querySelector(sel);
+      if (!el || el.dataset.revealed) return;
+      el.removeAttribute('data-rise');
+      el.style.opacity = '0';
+      el.style.transform = from;
+      el.style.transition = 'opacity 1.05s cubic-bezier(.2,.7,.2,1),transform 1.15s cubic-bezier(.2,.7,.2,1)';
+      el.style.willChange = 'transform,opacity';
+    });
+    const introHost = document.getElementById('intro');
+    if (introHost) introIO.observe(introHost);
+
+    // cursor-reactive intro: word and photo tilt apart under the pointer
+    if (introHost && !this._introHover) {
+      this._introHover = true;
+      const stack = introHost.querySelector('[data-intro-stack]');
+      if (stack) {
+        stack.addEventListener('pointermove', e => {
+          const r = stack.getBoundingClientRect();
+          window.__introNx = (e.clientX - r.left) / r.width - 0.5;
+          window.__introNy = (e.clientY - r.top) / r.height - 0.5;
+          window.__introHot = 1;
+        });
+        stack.addEventListener('pointerleave', () => { window.__introHot = 0; });
+      }
+    }
+
+    const barIO = new IntersectionObserver(ents => {
+      ents.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.style.width = en.target.dataset.bar + '%';
+        barIO.unobserve(en.target);
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('[data-bar]').forEach(el => barIO.observe(el));
+
+    const letterIO = new IntersectionObserver(ents => {
+      ents.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.querySelectorAll('[data-letter]').forEach(l => { l.style.transform = 'translateY(0)'; });
+        letterIO.unobserve(en.target);
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('[data-letters]').forEach(el => letterIO.observe(el));
+
+    const pathMap = document.getElementById('path-map');
+    if (pathMap && !pathMap.dataset.io) {
+      pathMap.dataset.io = '1';
+      const send = () => { try { pathMap.contentWindow.postMessage('path-play', '*'); } catch (e) {} };
+      const pio = new IntersectionObserver(ents => {
+        ents.forEach(en => {
+          if (!en.isIntersecting) return;
+          send();
+          pathMap.addEventListener('load', send);
+          setTimeout(send, 800);
+          pio.disconnect();
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -35% 0px' });
+      pio.observe(pathMap);
+      window.addEventListener('message', e => {
+        if (e.data && e.data.type === 'path-height' && e.data.h) pathMap.style.height = Math.ceil(e.data.h) + 'px';
+      });
+    }
+
+    // hover/tap to reveal card details
+    const setOpen = (card, open) => {
+      const info = card.querySelector('[data-xinfo]');
+      if (info) { info.style.gridTemplateRows = open ? '1fr' : '0fr'; info.style.opacity = open ? '1' : '0'; }
+      const hint = card.querySelector('[data-xhint]');
+      if (hint) { if (hint.textContent.trim() === '+' || hint.textContent.trim() === '×') hint.style.transform = open ? 'rotate(45deg)' : 'none'; else hint.style.opacity = open ? '0' : '1'; }
+      const mark = card.querySelector('[data-xmark]');
+      if (mark) { mark.style.opacity = open ? '.05' : '.09'; mark.style.transform = open ? 'translateY(-50%) scale(1.08)' : 'translateY(-50%)'; }
+      card.style.borderColor = open ? 'rgba(232,201,138,.5)' : '';
+      card.dataset.open = open ? '1' : '';
+    };
+    document.querySelectorAll('[data-xcard]').forEach(card => {
+      if (card.dataset.xbound) return;
+      card.dataset.xbound = '1';
+      card.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') setOpen(card, true); });
+      card.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') setOpen(card, false); });
+      card.addEventListener('focus', () => setOpen(card, true));
+      card.addEventListener('blur', e => { if (!card.contains(e.relatedTarget)) setOpen(card, false); });
+      card.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        setOpen(card, !card.dataset.open);
+      });
+    });
+
+    document.querySelectorAll('[data-rise]').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)';
+      el.style.willChange = 'transform,opacity';
+      io.observe(el);
+    });
+
+    // canvas sky
+    const ctx = sky.getContext('2d');
+    let W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
+    const resize = () => {
+      W = sky.clientWidth; H = sky.clientHeight;
+      sky.width = W * dpr; sky.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const stars = Array.from({ length: (window.innerWidth < 700 ? 160 : 380) }, () => ({
+      rx: Math.random(), ry: Math.pow(Math.random(), 0.8) * 0.9,
+      r: Math.random() * 1.25 + 0.25, p: Math.random() * 6.3, s: Math.random() * 1.1 + 0.3
+    }));
+    const shoot = [];
+    const m = { x: -9999, y: -9999 };
+    window.addEventListener('pointermove', e => { m.x = e.clientX; m.y = e.clientY; });
+
+    // palette: #081426 / #142A44 / #4A74A7 / #DCEAF7
+    const TN = { bg:[8,20,38,1], bg2:[12,28,51,1], card:[20,42,68,1], line:[220,234,247,.14], ink:[238,244,251,1], ink85:[220,234,247,.9], dim:[220,234,247,.76], muted:[220,234,247,.62], accent:[157,187,224,1], btn:[74,116,167,1], 'btn-ink':[255,255,255,1] };
+    const TD = { bg:[220,234,247,1], bg2:[207,225,243,1], card:[255,255,255,.55], line:[20,42,68,.16], ink:[8,20,38,1], ink85:[8,20,38,.88], dim:[20,42,68,.8], muted:[20,42,68,.66], accent:[47,90,140,1], btn:[20,42,68,1], 'btn-ink':[220,234,247,1] };
+    const root = document.documentElement;
+    const applyTheme = k => {
+      const kk = Math.round(k * 200) / 200;
+      if (window.__pfThemeK === kk) return;
+      window.__pfThemeK = kk;
+      for (const key in TN) {
+        const a = TN[key], b = TD[key];
+        const c = a.map((v, i) => i < 3 ? Math.round(v + (b[i] - v) * kk) : +(v + (b[i] - v) * kk).toFixed(3));
+        root.style.setProperty('--' + key, `rgba(${c[0]},${c[1]},${c[2]},${c[3]})`);
+      }
+    };
+
+    // glowing grid field behind the content
+    const fc = document.getElementById('field');
+    const fx = fc ? fc.getContext('2d') : null;
+    const fResize = () => { if (!fc) return; fc.width = fc.clientWidth * dpr; fc.height = fc.clientHeight * dpr; fx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+    fResize(); window.addEventListener('resize', fResize);
+    const CELL = 56;
+    const glows = [];
+    const drawField = k => {
+      if (!fc) return;
+      const vh = window.innerHeight || 1;
+      const intro = document.getElementById('intro');
+      let op = 0;
+      if (intro) {
+        const r = intro.getBoundingClientRect();
+        const solid = r.top + r.height * 0.6;
+        op = Math.max(0, Math.min(1, (vh - solid) / (vh * 0.35)));
+      }
+      fc.style.opacity = op.toFixed(3);
+      const scene = document.getElementById('sky-night') ? document.getElementById('sky-night').parentElement : null;
+      if (scene) scene.style.visibility = op >= 1 ? 'hidden' : 'visible';
+      if (op <= 0) return;
+      const w = fc.clientWidth, h = fc.clientHeight;
+      const bgc = TN.bg.map((v, i) => Math.round(v + (TD.bg[i] - v) * k));
+      fx.fillStyle = `rgb(${bgc[0]},${bgc[1]},${bgc[2]})`;
+      fx.fillRect(0, 0, w, h);
+      const off = -((window.scrollY || 0) * 0.25) % CELL;
+      fx.strokeStyle = k > .5 ? 'rgba(20,42,68,.07)' : 'rgba(220,234,247,.045)';
+      fx.lineWidth = 1;
+      fx.beginPath();
+      for (let x = 0.5; x < w; x += CELL) { fx.moveTo(x, 0); fx.lineTo(x, h); }
+      for (let y = off + 0.5; y < h; y += CELL) { fx.moveTo(0, y); fx.lineTo(w, y); }
+      fx.stroke();
+      if (Math.random() < 0.09 && glows.length < 22) glows.push({ c: Math.floor(Math.random() * Math.ceil(w / CELL)), r: Math.floor(Math.random() * (Math.ceil(h / CELL) + 2)), life: 0, max: 160 + Math.random() * 200 });
+      const mc = Math.floor(m.x / CELL), mr = Math.floor((m.y - off) / CELL);
+      if (m.x > 0 && !glows.some(g => g.c === mc && g.r === mr && g.life < 30)) glows.push({ c: mc, r: mr, life: 0, max: 90 });
+      const col = k > .5 ? '74,116,167' : '74,116,167';
+      for (let i = glows.length - 1; i >= 0; i--) {
+        const g = glows[i]; g.life++;
+        const p = g.life / g.max;
+        const a = Math.sin(Math.min(1, p) * Math.PI) * (k > .5 ? .26 : .34);
+        if (p >= 1) { glows.splice(i, 1); continue; }
+        const x = g.c * CELL + 4, y = g.r * CELL + off + 4;
+        fx.shadowColor = `rgba(${col},${a * 1.6})`;
+        fx.shadowBlur = 26;
+        fx.fillStyle = `rgba(${col},${a})`;
+        fx.fillRect(x, y, CELL - 8, CELL - 8);
+      }
+      fx.shadowBlur = 0;
+    };
+
+    // contact form -> mail draft
+    const form = document.getElementById('contact-form');
+    if (form && !form.dataset.bound) {
+      form.dataset.bound = '1';
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const f = new FormData(form);
+        const note0 = document.getElementById('contact-note');
+        const em = String(f.get('email') || '').trim();
+        if (!String(f.get('name') || '').trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) || !String(f.get('message') || '').trim()) {
+          if (note0) { note0.textContent = 'Please add your name, a valid email and a message.'; note0.style.color = '#f2b8b5'; }
+          return;
+        }
+        if (note0) note0.style.color = '';
+        const body = `${f.get('message')}\n\n— ${f.get('name')} (${f.get('email')})`;
+        window.location.href = `mailto:nasimjonmullojonov@gmail.com?subject=${encodeURIComponent('Hello from ' + f.get('name'))}&body=${encodeURIComponent(body)}`;
+        const note = document.getElementById('contact-note');
+        if (note) note.textContent = 'Opening your email app…';
+      });
+    }
+
+    let t = 0;
+    const frame = () => {
+      t += 0.016;
+      const isN = window.__pfNight;
+
+      // day/night wipe
+      const wT = isN ? -4800 : 0;
+      if (window.__pfWipe === undefined) window.__pfWipe = wT;
+      window.__pfWipe += (wT - window.__pfWipe) * 0.04;
+      if (Math.abs(wT - window.__pfWipe) < 6) window.__pfWipe = wT;
+      const wPos = Math.round(window.__pfWipe) + 'px 0';
+      [q('sky-day'), q('mtn-day')].forEach(el => {
+        if (el && el.style.maskPosition !== wPos) { el.style.maskPosition = wPos; el.style.webkitMaskPosition = wPos; }
+      });
+      const k = Math.max(0, Math.min(1, (window.__pfWipe + 4800) / 4800));
+      applyTheme(0);
+      drawField(0);
+
+      // scroll parallax
+      const vh = window.innerHeight || 1;
+      const yRaw = window.scrollY || 0;
+      if (window.__pfY === undefined) window.__pfY = yRaw;
+      window.__pfY += (yRaw - window.__pfY) * 0.12;
+      if (Math.abs(yRaw - window.__pfY) < 0.3) window.__pfY = yRaw;
+      const y = window.__pfY;
+      const p = Math.min(1.6, y / vh);
+
+      // the scene stays pinned; content scrolls over it, so nothing behind it can show
+      // bottom-anchored growth: the ridge rises, the bottom edge never leaves the frame
+      const grow = 1 + Math.min(0.22, Math.max(0, y / vh) * 0.22);
+      const rise = `scale(${grow.toFixed(4)})`;
+      [q('mtn-night'), q('mtn-day')].forEach(el => { if (el) el.style.transform = rise; });
+      const drift = `translate3d(0,${(-Math.min(vh * 0.05, y * 0.05)).toFixed(1)}px,0)`;
+      [q('sky-night'), q('sky-day')].forEach(el => { if (el) el.style.transform = drift; });
+      sky.style.transform = `translate3d(0,${(-Math.min(vh * 0.09, y * 0.09)).toFixed(1)}px,0)`;
+      sky.style.opacity = String(Math.max(0, 1 - p * 0.8));
+
+      const copy = q('hero-copy');
+      if (copy) {
+        copy.style.transform = `translate3d(0,${(-y * 0.55).toFixed(1)}px,0)`;
+        copy.style.opacity = String(Math.max(0, 1 - p * 1.05));
+      }
+      const cue = q('scroll-cue');
+      if (cue) cue.style.opacity = String(Math.max(0, 1 - p * 3));
+
+      const word = q('intro-word'), photo = q('intro-photo');
+      if (word && photo && word.dataset.revealed && photo.dataset.revealed) {
+        const r = photo.getBoundingClientRect();
+        const prog = Math.max(-1, Math.min(1, (vh * 0.5 - (r.top + r.height / 2)) / vh));
+        const hot = window.__introHot || 0;
+        if (window.__introEase === undefined) window.__introEase = 0;
+        window.__introEase += (hot - window.__introEase) * 0.08;
+        const h = window.__introEase;
+        const nx = window.__introNx || 0, ny = window.__introNy || 0;
+        word.style.transform = `translate3d(${(prog * -46 + nx * h * 46).toFixed(1)}px,${(prog * -22 + ny * h * 20).toFixed(1)}px,0) scaleY(1.3)`;
+        photo.style.transform = `translate3d(${(nx * h * -22).toFixed(1)}px,${(prog * 16 + ny * h * -12).toFixed(1)}px,0) rotate(${(nx * h * -1.1).toFixed(2)}deg) scale(${(1 + h * 0.018).toFixed(4)})`;
+      }
+
+      const abg = q('about-bg');
+      if (abg) {
+        const r = abg.parentElement.getBoundingClientRect();
+        const pr = Math.max(-1, Math.min(1, (vh / 2 - (r.top + r.height / 2)) / vh));
+        abg.style.transform = `translate3d(0,${(pr * 40).toFixed(1)}px,0)`;
+      }
+
+      const veil = q('veil');
+      if (veil) {
+        const r = Math.round(5 + k * 8), g = Math.round(7 + k * 10), b = Math.round(15 + k * 13);
+        veil.style.background = `linear-gradient(180deg,rgba(${r},${g},${b},${(0.32 + k * 0.04).toFixed(3)}) 0%,rgba(${r},${g},${b},${(0.14 + k * 0.05).toFixed(3)}) 34%,rgba(${r},${g},${b},${(0.06 + k * 0.03).toFixed(3)}) 62%,rgba(${r},${g},${b},${(0.38 - k * 0.06).toFixed(3)}) 100%)`;
+      }
+      const scrim = q('scrim');
+      if (scrim) scrim.style.opacity = (0.42 + k * 0.5).toFixed(3);
+
+      const nav = q('nav');
+      if (nav) {
+        const on = (window.scrollY || 0) > vh * 0.65;
+        nav.style.background = on ? 'color-mix(in srgb,var(--bg) 84%,transparent)' : 'transparent';
+        nav.style.color = on ? 'var(--ink)' : '#fff';
+        nav.style.backdropFilter = on ? 'blur(14px)' : 'blur(0px)';
+        nav.style.borderBottom = on ? '1px solid var(--line)' : '1px solid transparent';
+      }
+
+      // stars
+      ctx.clearRect(0, 0, W, H);
+      const warm = !isN;
+      const fade = 1 - k * 0.8;
+      for (const s of stars) {
+        const x = s.rx * W, y = s.ry * H;
+        const d = Math.hypot(x - m.x, y - m.y);
+        const near = d < 170 ? 1 - d / 170 : 0;
+        const a = ((0.4 + 0.5 * Math.abs(Math.sin(t * s.s + s.p))) * fade + near * 0.6);
+        ctx.fillStyle = warm ? `rgba(255,250,232,${Math.min(1, a * 0.5)})` : `rgba(235,242,255,${Math.min(1, a)})`;
+        ctx.beginPath();
+        ctx.arc(x + Math.sin(t * 0.25 + s.p) * (2 + near * 14), y + Math.cos(t * 0.2 + s.p) * (1.5 + near * 10), s.r * (1 + near * 1.9), 0, 6.3);
+        ctx.fill();
+      }
+      if (isN && Math.random() < 0.012 && shoot.length < 2) {
+        shoot.push({ x: Math.random() * W * 0.7 + W * 0.25, y: Math.random() * H * 0.3, l: 0 });
+      }
+      for (let i = shoot.length - 1; i >= 0; i--) {
+        const s = shoot[i]; s.l += 11;
+        const x2 = s.x - s.l, y2 = s.y + s.l * 0.4;
+        const g2 = ctx.createLinearGradient(s.x, s.y, x2, y2);
+        g2.addColorStop(0, 'rgba(255,255,255,0)');
+        g2.addColorStop(1, `rgba(255,248,226,${Math.max(0, 0.95 - s.l / 340) * fade})`);
+        ctx.strokeStyle = g2; ctx.lineWidth = 1.7;
+        ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(x2, y2); ctx.stroke();
+        if (s.l > 360) shoot.splice(i, 1);
+      }
+
+      window.__pfRaf = requestAnimationFrame(frame);
+    };
+    frame();
+  }
+}
+</script>
+</body>
+</html>
